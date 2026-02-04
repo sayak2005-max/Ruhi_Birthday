@@ -3,49 +3,58 @@ import { useState } from "react";
 import PageWrapper from "./PageWrapper";
 import { motion, AnimatePresence } from "framer-motion";
 
-const messages = [
-  "you",
-  "are",
-  "a",
-  "cutie"
-];
+const messages = ["you", "are", "a", "cutie"];
 
 export default function BalloonPage({ next }) {
   const [opened, setOpened] = useState([]);
 
   const handleClick = (index) => {
     if (!opened.includes(index)) {
-      setOpened([...opened, index]);
+      setOpened((prev) => [...prev, index]);
     }
   };
 
   return (
     <PageWrapper>
 
-      {/* BALLOONS */}
-      <div style={{ 
-        display: "flex", 
-        gap: "clamp(10px, 5vw, 20px)",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        maxWidth: "100%",
-      }}>
+      {/* 🎈 BALLOONS */}
+      <div
+        style={{
+          display: "flex",
+          gap: "clamp(12px, 5vw, 22px)",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          maxWidth: "100%",
+          marginTop: "10px",
+        }}
+      >
         {messages.map((_, index) => (
           <AnimatePresence key={index}>
             {!opened.includes(index) && (
               <motion.img
                 src="/assets/balloon.png"
+                alt="balloon"
                 width={120}
-                style={{ 
+                style={{
                   cursor: "pointer",
                   maxWidth: "22vw",
                   height: "auto",
+                  userSelect: "none",
                 }}
                 initial={{ y: 0 }}
                 animate={{ y: [-10, 10] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-                whileTap={{ scale: 0.8 }}
-                exit={{ scale: 0, opacity: 0, rotate: 360 }}
+                transition={{
+                  repeat: Infinity,
+                  repeatType: "mirror",
+                  duration: 2 + index * 0.2,
+                }}
+                whileTap={{ scale: 0.85 }}
+                exit={{
+                  scale: 0,
+                  opacity: 0,
+                  rotate: 360,
+                  transition: { duration: 0.4 },
+                }}
                 onClick={() => handleClick(index)}
               />
             )}
@@ -53,21 +62,30 @@ export default function BalloonPage({ next }) {
         ))}
       </div>
 
-      {/* LETTER MESSAGES */}
-      <div style={{ marginTop: "clamp(20px, 5vh, 30px)", maxWidth: "90%" }}>
-        {opened.map((i) => (
+      {/* 💌 MESSAGE CARDS */}
+      <div
+        style={{
+          marginTop: "clamp(22px, 5vh, 32px)",
+          maxWidth: "90%",
+        }}
+      >
+        {opened.map((i, order) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: order * 0.15 }}
             style={{
-              background: "white",
-              padding: "clamp(10px, 3vw, 14px)",
-              marginBottom: "10px",
-              borderRadius: 12,
-              width: "clamp(250px, 80%, 280px)",
+              background: "#ffffff",
+              padding: "clamp(12px, 3vw, 16px)",
+              marginBottom: "12px",
+              borderRadius: 14,
+              width: "clamp(240px, 80%, 280px)",
               fontSize: "clamp(14px, 4vw, 16px)",
-              margin: "0 auto 10px auto",
+              marginLeft: "auto",
+              marginRight: "auto",
+              boxShadow: "0 8px 20px rgba(255, 182, 193, 0.4)",
+              textAlign: "center",
             }}
           >
             💌 {messages[i]}
@@ -75,26 +93,44 @@ export default function BalloonPage({ next }) {
         ))}
       </div>
 
-      {/* NEXT BUTTON */}
-      {opened.length === 4 && (
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={next}
-          style={{ 
-            marginTop: "clamp(20px, 5vh, 30px)",
-            fontSize: "clamp(14px, 4vw, 16px)", 
-            padding: "10px 15px" 
-          }}
+      {/* ➜ NEXT BUTTON */}
+      {opened.length === messages.length && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.5 }}
+          style={{ marginTop: "clamp(22px, 5vh, 32px)" }}
         >
-          Next ➜
-        </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={next}
+            style={{
+              fontSize: "clamp(14px, 4vw, 16px)",
+              padding: "12px 30px",
+              borderRadius: 999,
+              background: "#ffccd3",
+              border: "none",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            Next ➜
+          </motion.button>
+        </motion.div>
       )}
 
-      {/* HELPER TEXT */}
-      {opened.length < 4 && <p style={{ fontSize: "clamp(14px, 4vw, 16px)" }}>Tap balloons one by one 🎈</p>}
-
+      {/* ℹ️ HELPER TEXT */}
+      {opened.length < messages.length && (
+        <p
+          style={{
+            marginTop: "clamp(18px, 4vh, 26px)",
+            fontSize: "clamp(14px, 4vw, 16px)",
+            opacity: 0.8,
+          }}
+        >
+          Tap balloons one by one 🎈
+        </p>
+      )}
     </PageWrapper>
   );
 }

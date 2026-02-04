@@ -2,18 +2,38 @@
 import { useState } from "react";
 import PageWrapper from "./PageWrapper";
 import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
 
 export default function CakePage({ next }) {
   const [blown, setBlown] = useState(false);
 
+  const blowCandle = () => {
+    setBlown(true);
+
+    setTimeout(() => {
+      confetti({
+        particleCount: 90,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ["#ff8fab", "#ffd166", "#ffb3c6"],
+      });
+    }, 400);
+  };
+
   return (
     <PageWrapper>
 
-      {/* CAKE WITH CANDLE */}
-      <div style={{ position: "relative", display: "inline-block" }}>
-        {/* CAKE */}
-        <img 
-          src="/assets/cake.png" 
+      {/* 🎂 CAKE WRAPPER */}
+      <div
+        style={{
+          position: "relative",
+          display: "inline-block",
+        }}
+      >
+        {/* 🎂 CAKE IMAGE */}
+        <img
+          src="/assets/cake.png"
+          alt="cake"
           width={260}
           style={{
             maxWidth: "85vw",
@@ -22,55 +42,135 @@ export default function CakePage({ next }) {
           }}
         />
 
-        {/* CANDLE - ON TOP OF CAKE */}
-        <div style={{ 
-          position: "absolute", 
-          top: 40, 
-          left: "50%", 
-          transform: "translateX(-50%)",
-          zIndex: 10,
-        }}>
+        {/* 🕯️ 3D NUMBER CANDLE — CENTER OF ROUND CAKE */}
+        <div
+          style={{
+            position: "absolute",
+            top: "-1%",                      // 🎯 CENTER OF ROUND TOP
+            left: "53%",
+            transform: "translate(-50%, 4px) perspective(600px)",
+            zIndex: 15,
+            pointerEvents: "none",
+            filter: "drop-shadow(0 6px 6px rgba(0,0,0,0.25))",
+          }}
+        >
           <AnimatePresence>
             {!blown && (
               <motion.div
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.75, y: 14 }}
+                transition={{ duration: 0.45, ease: "easeInOut" }}
                 style={{
-                  width: 60,
-                  height: 70,
                   position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  width: 110,
+                  height: 125,
+                  transformStyle: "preserve-3d",
                 }}
               >
-                <svg width="60" height="70" viewBox="0 0 60 70" style={{ position: "absolute", zIndex: 1 }}>
-                  {/* Number 1 - Pink */}
-                  <line x1="10" y1="10" x2="10" y2="60" stroke="#080808" strokeWidth="6" strokeLinecap="round" />
-                  <line x1="5" y1="60" x2="15" y2="60" stroke="#0a0a0a" strokeWidth="6" strokeLinecap="round" />
-                  
-                  {/* Number 9 - Blue */}
-                  <circle cx="40" cy="25" r="12" fill="none" stroke="#0c0c0c" strokeWidth="6" strokeLinecap="round" />
-                  <line x1="52" y1="25" x2="52" y2="60" stroke="#0b0b0b" strokeWidth="6" strokeLinecap="round" />
-                  <line x1="47" y1="60" x2="57" y2="60" stroke="#0a0a0a" strokeWidth="6" strokeLinecap="round" />
-                </svg>
-                
-                {/* FLAME */}
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }}
+                {/* 🔻 INSERTION SHADOW (anchors candle to cake) */}
+                <div
                   style={{
-                    width: 18,
-                    height: 18,
-                    background: "radial-gradient(circle, #FFD700 0%, #FFA500 50%, #FF6347 100%)",
-                    borderRadius: "50%",
                     position: "absolute",
-                    top: -20,
-                    left: "30%",
+                    bottom: 14,
+                    left: "50%",
                     transform: "translateX(-50%)",
-                    boxShadow: "0 0 15px rgb(251, 7, 7), 0 0 30px rgba(243, 84, 31, 0.94), 0 0 45px rgba(255, 69, 0, 0.4)",
-                    filter: "drop-shadow(0 0 8px rgba(255, 0, 0, 0.8))",
-                    zIndex: 2,
+                    width: 72,
+                    height: 12,
+                    background:
+                      "radial-gradient(ellipse at center, rgba(0,0,0,0.45), transparent)",
+                    filter: "blur(6px)",
+                    zIndex: -1,
+                  }}
+                />
+
+                {/* 🔢 NUMBER 1 — 3D WAX */}
+                <div
+                  style={{
+                    position: "absolute",
+                    left: 22,
+                    top: 22,
+                    width: 18,
+                    height: 82,
+                    background:
+                      "linear-gradient(90deg, #ff9aa9 0%, #ff4d6d 45%, #d92d4f 100%)",
+                    borderRadius: 10,
+                    boxShadow:
+                      "inset 2px 0 rgba(255,255,255,0.5), inset -3px 0 rgba(0,0,0,0.25)",
+                    transform: "rotateX(8deg)",
+                  }}
+                />
+
+                {/* 🔢 NUMBER 9 — LOOP */}
+                <div
+                  style={{
+                    position: "absolute",
+                    right: 20,
+                    top: 22,
+                    width: 50,
+                    height: 50,
+                    borderRadius: "50%",
+                    border: "9px solid #ff4d6d",
+                    boxShadow:
+                      "inset 3px 3px rgba(255,255,255,0.4), inset -4px -4px rgba(0,0,0,0.25)",
+                    transform: "rotateX(8deg)",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    right: 34,
+                    top: 56,
+                    width: 18,
+                    height: 48,
+                    background:
+                      "linear-gradient(90deg, #ff9aa9 0%, #ff4d6d 45%, #d92d4f 100%)",
+                    borderRadius: 10,
+                    boxShadow:
+                      "inset 2px 0 rgba(255,255,255,0.5), inset -3px 0 rgba(0,0,0,0.25)",
+                    transform: "rotateX(8deg)",
+                  }}
+                />
+
+                {/* 🧵 WICK */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 8,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 3,
+                    height: 9,
+                    background: "#222",
+                    borderRadius: 2,
+                    zIndex: 5,
+                  }}
+                />
+
+                {/* 🔥 FLAME — VIDEO STYLE */}
+                <motion.div
+                  animate={{
+                    scaleY: [1, 1.25, 1],
+                    rotate: [42, 50, 42],
+                    x: [-1, 1, -1],
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 0.75,
+                    ease: "easeInOut",
+                  }}
+                  style={{
+                    position: "absolute",
+                    top: -26,
+                    left: "50%",
+                    transform: "translateX(-50%) rotate(45deg)",
+                    width: 16,
+                    height: 30,
+                    background:
+                      "radial-gradient(circle at 30% 30%, #fffbe6 0%, #ffd166 35%, #ff8c00 65%, #ff4500 100%)",
+                    borderRadius: "50% 50% 50% 50%",
+                    boxShadow:
+                      "0 0 22px rgba(255,140,0,0.9), 0 0 40px rgba(255,69,0,0.75)",
+                    zIndex: 6,
                   }}
                 />
               </motion.div>
@@ -79,43 +179,41 @@ export default function CakePage({ next }) {
         </div>
       </div>
 
-      {/* BUTTON AND TEXT BELOW CAKE */}
-      <div style={{ marginTop: "clamp(30px, 8vh, 50px)" }}>
-        {/* BUTTON TO BLOW CANDLE */}
-        {!blown && (
+      {/* 🔽 BUTTONS & MESSAGE */}
+      <div style={{ marginTop: "clamp(32px, 8vh, 52px)" }}>
+        {!blown ? (
           <motion.button
             whileTap={{ scale: 0.9 }}
-            onClick={() => setBlown(true)}
-            style={{ 
-              marginTop: 0,
+            onClick={blowCandle}
+            style={{
               fontSize: "clamp(14px, 4vw, 16px)",
-              padding: "10px 15px"
+              padding: "12px 26px",
             }}
           >
             Blow Candle 🕯️
           </motion.button>
-        )}
-
-        {/* AFTER BLOW */}
-        {blown && (
+        ) : (
           <>
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              style={{ fontSize: "clamp(14px, 4vw, 16px)", padding: "0 15px" }}
+              style={{
+                fontSize: "clamp(14px, 4vw, 16px)",
+                padding: "0 16px",
+              }}
             >
               ✨ Wish made! May all your dreams come true 💖
             </motion.p>
 
             <motion.button
-              style={{ 
-                marginTop: "clamp(15px, 3vh, 20px)",
-                fontSize: "clamp(14px, 4vw, 16px)",
-                padding: "10px 15px"
-              }}
               whileTap={{ scale: 0.9 }}
               onClick={next}
+              style={{
+                marginTop: 20,
+                fontSize: "clamp(14px, 4vw, 16px)",
+                padding: "12px 28px",
+              }}
             >
               Next ➜
             </motion.button>
