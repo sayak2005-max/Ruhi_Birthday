@@ -90,7 +90,7 @@ export default function FinalPage({ restart }) {
             textShadow: "0 4px 12px rgba(255,182,193,0.4)",
           }}
         >
-          Happy Birthday ❤️ MY LOVE ❤️ MY WIFEY ❤️
+          Happy Birthday ❤️ MISS ❤️ CUTEY ❤️ AND MY FAVORITE BEST FRIEND .
           <br />
           Many Many Happy Returns of the Day 🎉🎂🎈
           <br />

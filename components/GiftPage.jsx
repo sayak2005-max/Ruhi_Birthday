@@ -121,7 +121,7 @@ export default function GiftPage({ next }) {
               <p>
                 💖 <b>Surpriseee!</b>
                 <br /><br />
-                Here's to the one who's been my partner in crime, my confidante,
+                Here's to the one who's been my confidante, 
                 and my favorite person to share laughs with. May your special day
                 be as bright and beautiful as you are! 🎂
                 <br /><br />
