@@ -21,7 +21,7 @@ export default function MemoryPage({ next }) {
           marginBottom: "clamp(12px, 3vh, 18px)",
         }}
       >
-        {["1.jpeg", "2.jpeg"].map((img, i) => (
+        {["1.jpg"].map((img, i) => (
           <motion.img
             key={img}
             src={`/assets/${img}`}

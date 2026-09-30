@@ -44,9 +44,9 @@ export default function FinalPage({ restart }) {
           transition={{ delay: 0.4 }}
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(90px, 1fr))",
+            gridTemplateColumns: "1fr",
             gap: "clamp(8px, 2vw, 14px)",
-            maxWidth: "52vw",
+            maxWidth: "min(78vw, 560px)",
             width: "100%",
             marginBottom: 14,
             marginLeft: "auto",
@@ -54,19 +54,8 @@ export default function FinalPage({ restart }) {
           }}
         >
           <img
-            src="/assets/3.jpeg"
-            alt="memory 1"
-            style={{
-              width: "100%",
-              height: "auto",
-              borderRadius: 10,
-              boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
-            }}
-          />
-
-          <img
-            src="/assets/4.jpeg"
-            alt="memory 2"
+            src="/assets/2.jpg"
+            alt="Birthday memory"
             style={{
               width: "100%",
               height: "auto",
