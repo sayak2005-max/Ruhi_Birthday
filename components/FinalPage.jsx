@@ -35,7 +35,11 @@ export default function FinalPage({ restart }) {
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        style={{ textAlign: "center", zIndex: 2 }}
+        style={{
+          textAlign: "center",
+          zIndex: 2,
+          width: "100%",
+        }}
       >
 
         {/* 📸 Images */}
@@ -45,28 +49,60 @@ export default function FinalPage({ restart }) {
           transition={{ delay: 0.4 }}
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr",
+            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
             gap: "clamp(8px, 2vw, 14px)",
-            maxWidth: "min(78vw, 560px)",
+            maxWidth: "min(92vw, 680px)",
             width: "100%",
             marginBottom: 14,
             marginLeft: "auto",
             marginRight: "auto",
           }}
         >
-          <Image
-            src="/assets/2.jpg"
-            alt="Birthday memory"
-            width={1080}
-            height={609}
-            sizes="(max-width: 560px) 78vw, 560px"
-            style={{
-              width: "100%",
-              height: "auto",
-              borderRadius: 10,
-              boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
-            }}
-          />
+
+          {/* 📸 2.jpg */}
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Image
+              src="/assets/2.jpg"
+              alt="Birthday memory 1"
+              width={1080}
+              height={609}
+              sizes="(max-width: 600px) 45vw, 330px"
+              style={{
+                width: "100%",
+                height: "clamp(150px, 28vh, 250px)",
+                objectFit: "cover",
+                borderRadius: 12,
+                boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
+                display: "block",
+              }}
+            />
+          </motion.div>
+
+          {/* 📸 4.jpg */}
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Image
+              src="/assets/4.jpg"
+              alt="Birthday memory 2"
+              width={1080}
+              height={1440}
+              sizes="(max-width: 600px) 45vw, 330px"
+              style={{
+                width: "100%",
+                height: "clamp(150px, 28vh, 250px)",
+                objectFit: "cover",
+                borderRadius: 12,
+                boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
+                display: "block",
+              }}
+            />
+          </motion.div>
+
         </motion.div>
 
         {/* 💌 Message */}

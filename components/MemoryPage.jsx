@@ -14,7 +14,7 @@ export default function MemoryPage({ next }) {
         transition={{ duration: 0.7, ease: "easeOut" }}
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
           gap: "clamp(8px, 2vw, 14px)",
           maxWidth: "min(92vw, 680px)",
           width: "100%",
@@ -22,7 +22,7 @@ export default function MemoryPage({ next }) {
           marginBottom: "clamp(12px, 3vh, 18px)",
         }}
       >
-        {["1.jpg", "3.jpg", "4.jpg"].map((img, i) => (
+        {["1.jpg", "3.jpg"].map((img, i) => (
           <motion.div
             key={img}
             style={{
@@ -40,10 +40,10 @@ export default function MemoryPage({ next }) {
               alt={`Memory ${i + 1}`}
               width={1080}
               height={1440}
-              sizes="(max-width: 740px) 30vw, 220px"
+              sizes="(max-width: 740px) 45vw, 300px"
               style={{
                 width: "100%",
-                height: "clamp(120px, 24vh, 210px)",
+                height: "clamp(150px, 30vh, 250px)",
                 objectFit: "cover",
               }}
             />
