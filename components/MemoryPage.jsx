@@ -1,5 +1,6 @@
 "use client";
 import PageWrapper from "./PageWrapper";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function MemoryPage({ next }) {
@@ -13,30 +14,40 @@ export default function MemoryPage({ next }) {
         transition={{ duration: 0.7, ease: "easeOut" }}
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(90px, 1fr))",
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
           gap: "clamp(8px, 2vw, 14px)",
-          maxWidth: "52vw",
+          maxWidth: "min(92vw, 680px)",
           width: "100%",
           justifyContent: "center",
           marginBottom: "clamp(12px, 3vh, 18px)",
         }}
       >
-        {["1.jpg"].map((img, i) => (
-          <motion.img
+        {["1.jpg", "3.jpg", "4.jpg"].map((img, i) => (
+          <motion.div
             key={img}
-            src={`/assets/${img}`}
-            alt={`memory-${i}`}
             style={{
-              width: "100%",
-              height: "auto",
               borderRadius: 12,
+              overflow: "hidden",
               boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
             }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + i * 0.2 }}
             whileHover={{ scale: 1.03 }}
-          />
+          >
+            <Image
+              src={`/assets/${img}`}
+              alt={`Memory ${i + 1}`}
+              width={1080}
+              height={1440}
+              sizes="(max-width: 740px) 30vw, 220px"
+              style={{
+                width: "100%",
+                height: "clamp(120px, 24vh, 210px)",
+                objectFit: "cover",
+              }}
+            />
+          </motion.div>
         ))}
       </motion.div>
 

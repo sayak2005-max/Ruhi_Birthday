@@ -1,5 +1,6 @@
 "use client";
 import PageWrapper from "./PageWrapper";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function IntroPage({ next }) {
@@ -7,13 +8,10 @@ export default function IntroPage({ next }) {
     <PageWrapper>
 
       {/* 🎞️ Intro GIF */}
-      <motion.img
-        src="/assets/intro.gif"
-        alt="intro"
-        width={220}
+      <motion.div
         style={{
+          width: 220,
           maxWidth: "90%",
-          height: "auto",
           userSelect: "none",
         }}
         initial={{ opacity: 0, scale: 0.9 }}
@@ -27,7 +25,16 @@ export default function IntroPage({ next }) {
           scale: { duration: 0.8 },
           y: { repeat: Infinity, duration: 2, ease: "easeInOut" },
         }}
-      />
+      >
+        <Image
+          src="/assets/intro.gif"
+          alt="intro"
+          width={415}
+          height={473}
+          sizes="(max-width: 244px) 90vw, 220px"
+          style={{ width: "100%", height: "auto" }}
+        />
+      </motion.div>
 
       {/* 💬 Text */}
       <motion.p

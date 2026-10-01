@@ -1,5 +1,6 @@
 "use client";
 import PageWrapper from "./PageWrapper";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function FinalPage({ restart }) {
@@ -53,9 +54,12 @@ export default function FinalPage({ restart }) {
             marginRight: "auto",
           }}
         >
-          <img
+          <Image
             src="/assets/2.jpg"
             alt="Birthday memory"
+            width={1080}
+            height={609}
+            sizes="(max-width: 560px) 78vw, 560px"
             style={{
               width: "100%",
               height: "auto",
@@ -79,7 +83,7 @@ export default function FinalPage({ restart }) {
             textShadow: "0 4px 12px rgba(255,182,193,0.4)",
           }}
         >
-          Happy Birthday ❤️ MISS ❤️ CUTEY ❤️ AND MY FAVORITE BEST FRIEND .
+          Happy Birthday ❤️ MISS ❤️ CUTIE ❤️ AND MY FAVORITE PERSON ❤️.
           <br />
           Many Many Happy Returns of the Day 🎉🎂🎈
           <br />

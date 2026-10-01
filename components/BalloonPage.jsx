@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import PageWrapper from "./PageWrapper";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const messages = ["you", "are", "a", "cutie"];
@@ -31,14 +32,11 @@ export default function BalloonPage({ next }) {
         {messages.map((_, index) => (
           <AnimatePresence key={index}>
             {!opened.includes(index) && (
-              <motion.img
-                src="/assets/balloon.png"
-                alt="balloon"
-                width={120}
+              <motion.div
                 style={{
-                  cursor: "pointer",
+                  width: 120,
                   maxWidth: "22vw",
-                  height: "auto",
+                  cursor: "pointer",
                   userSelect: "none",
                 }}
                 initial={{ y: 0 }}
@@ -56,7 +54,16 @@ export default function BalloonPage({ next }) {
                   transition: { duration: 0.4 },
                 }}
                 onClick={() => handleClick(index)}
-              />
+              >
+                <Image
+                  src="/assets/balloon.png"
+                  alt="balloon"
+                  width={2800}
+                  height={3283}
+                  sizes="22vw"
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </motion.div>
             )}
           </AnimatePresence>
         ))}

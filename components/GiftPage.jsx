@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import PageWrapper from "./PageWrapper";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 
@@ -60,16 +61,22 @@ export default function GiftPage({ next }) {
             transition={{ duration: 0.4 }}
             style={{ textAlign: "center" }}
           >
-            <motion.img
-              src="/assets/gift.gif"
-              alt="gift"
-              width={220}
-              style={{ cursor: "pointer" }}
+            <motion.div
+              style={{ cursor: "pointer", width: 220, maxWidth: "90vw" }}
               animate={{ y: [-8, 8] }}
               transition={{ repeat: Infinity, duration: 2 }}
               whileTap={{ scale: 0.9 }}
               onClick={openGift}
-            />
+            >
+              <Image
+                src="/assets/gift.gif"
+                alt="gift"
+                width={498}
+                height={498}
+                sizes="220px"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0 }}
@@ -94,14 +101,21 @@ export default function GiftPage({ next }) {
             transition={{ duration: 0.6 }}
             style={{ textAlign: "center", maxWidth: 360 }}
           >
-            <motion.img
-              src="/assets/surprise.gif"
-              alt="surprise"
-              width={220}
+            <motion.div
+              style={{ width: 220, maxWidth: "90vw" }}
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5 }}
-            />
+            >
+              <Image
+                src="/assets/surprise.gif"
+                alt="surprise"
+                width={345}
+                height={253}
+                sizes="220px"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
