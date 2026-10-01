@@ -7,78 +7,229 @@ import confetti from "canvas-confetti";
 
 export default function CakePage({ next }) {
 const [blown, setBlown] = useState(false);
+const [showPoppers, setShowPoppers] = useState(false);
 
 const blowCandle = () => {
 setBlown(true);
+setShowPoppers(true);
 
-```
+// 🎉 Main confetti burst
 setTimeout(() => {
   confetti({
-    particleCount: 120,
+    particleCount: 150,
     spread: 110,
     origin: { y: 0.6 },
     colors: ["#ff8fab", "#ffd166", "#ffffff", "#8b4513"],
   });
 }, 400);
-```
+
+// 🎊 Extra party-popper confetti from both sides
+setTimeout(() => {
+  confetti({
+    particleCount: 70,
+    angle: 60,
+    spread: 55,
+    origin: { x: 0, y: 0.65 },
+    colors: ["#ff4d6d", "#ffd166", "#8b4513", "#ff8fab"],
+  });
+
+  confetti({
+    particleCount: 70,
+    angle: 120,
+    spread: 55,
+    origin: { x: 1, y: 0.65 },
+    colors: ["#ff4d6d", "#ffd166", "#8b4513", "#ff8fab"],
+  });
+}, 200);
+
+// Remove party poppers after animation
+setTimeout(() => {
+  setShowPoppers(false);
+}, 1800);
 
 };
 
+const popperPieces = [
+"🎉",
+"🎊",
+"✨",
+"💖",
+"🎈",
+"⭐",
+"💛",
+"🎀",
+];
+
 return ( <PageWrapper>
-{/* 🍫 CHOCOLATE CAKE */}
-<div
-style={{
-position: "relative",
-width: "300px",
-maxWidth: "90vw",
-height: "310px",
-margin: "0 auto",
-}}
->
-{/* 🕯️ 20 CANDLE */} <AnimatePresence>
-{!blown && (
-<motion.div
-initial={{ opacity: 0, scale: 0.85 }}
-animate={{ opacity: 1, scale: 1 }}
-exit={{ opacity: 0, scale: 0.7, y: 20 }}
-transition={{ duration: 0.4 }}
-style={{
-position: "absolute",
-top: 5,
-left: "50%",
-transform: "translateX(-50%)",
-width: 85,
-height: 100,
-zIndex: 30,
-}}
->
-{/* 🔥 FLAME */}
-<motion.div
-animate={{
-scale: [1, 1.15, 0.95, 1.1, 1],
-rotate: [-4, 5, -4, 3, -4],
-}}
-transition={{
-repeat: Infinity,
-duration: 0.8,
-}}
-style={{
-position: "absolute",
-top: -5,
-left: "-10%",
-transform: "translateX(-50%)",
-width: 17,
-height: 28,
-borderRadius: "55% 45% 60% 40%",
-background:
-"radial-gradient(circle at 50% 70%, white 0%, #fff3a0 20%, #ffd166 42%, #ff8c00 68%, #ff4500 100%)",
-boxShadow:
-"0 0 10px #ffd166, 0 0 25px #ff8c00, 0 0 40px rgba(255,70,0,.5)",
-zIndex: 40,
-}}
-/>
 
 ```
+  {/* 🎊 PARTY POPPERS */}
+  <AnimatePresence>
+    {showPoppers && (
+      <>
+        {/* LEFT PARTY POPPER */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.3, x: -20 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          style={{
+            position: "fixed",
+            left: "4%",
+            top: "50%",
+            fontSize: "42px",
+            zIndex: 100,
+            pointerEvents: "none",
+          }}
+        >
+          🎉
+        </motion.div>
+
+        {/* RIGHT PARTY POPPER */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.3, x: 20 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          style={{
+            position: "fixed",
+            right: "4%",
+            top: "50%",
+            fontSize: "42px",
+            zIndex: 100,
+            pointerEvents: "none",
+          }}
+        >
+          🎉
+        </motion.div>
+
+        {/* LEFT FLYING PIECES */}
+        {popperPieces.map((piece, i) => (
+          <motion.div
+            key={`left-${i}`}
+            initial={{
+              opacity: 1,
+              x: "8vw",
+              y: "50vh",
+              scale: 0.5,
+              rotate: 0,
+            }}
+            animate={{
+              opacity: 0,
+              x: `${15 + i * 4}vw`,
+              y: `${35 - (i % 4) * 7}vh`,
+              scale: 1.2,
+              rotate: 360 + i * 45,
+            }}
+            transition={{
+              duration: 1.4,
+              delay: i * 0.04,
+              ease: "easeOut",
+            }}
+            style={{
+              position: "fixed",
+              fontSize: "22px",
+              zIndex: 99,
+              pointerEvents: "none",
+            }}
+          >
+            {piece}
+          </motion.div>
+        ))}
+
+        {/* RIGHT FLYING PIECES */}
+        {popperPieces.map((piece, i) => (
+          <motion.div
+            key={`right-${i}`}
+            initial={{
+              opacity: 1,
+              x: "92vw",
+              y: "50vh",
+              scale: 0.5,
+              rotate: 0,
+            }}
+            animate={{
+              opacity: 0,
+              x: `${85 - i * 4}vw`,
+              y: `${35 - (i % 4) * 7}vh`,
+              scale: 1.2,
+              rotate: -360 - i * 45,
+            }}
+            transition={{
+              duration: 1.4,
+              delay: i * 0.04,
+              ease: "easeOut",
+            }}
+            style={{
+              position: "fixed",
+              fontSize: "22px",
+              zIndex: 99,
+              pointerEvents: "none",
+            }}
+          >
+            {piece}
+          </motion.div>
+        ))}
+      </>
+    )}
+  </AnimatePresence>
+
+  {/* 🍫 CHOCOLATE CAKE */}
+  <div
+    style={{
+      position: "relative",
+      width: "300px",
+      maxWidth: "90vw",
+      height: "310px",
+      margin: "0 auto",
+    }}
+  >
+
+    {/* 🕯️ 20 CANDLE */}
+    <AnimatePresence>
+      {!blown && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.7, y: 20 }}
+          transition={{ duration: 0.4 }}
+          style={{
+            position: "absolute",
+            top: 5,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 85,
+            height: 100,
+            zIndex: 30,
+          }}
+        >
+
+          {/* 🔥 FLAME */}
+          <motion.div
+            animate={{
+              scale: [1, 1.15, 0.95, 1.1, 1],
+              rotate: [-4, 5, -4, 3, -4],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 0.8,
+            }}
+            style={{
+              position: "absolute",
+              top: -5,
+              left: "-10%",
+              transform: "translateX(-50%)",
+              width: 17,
+              height: 28,
+              borderRadius: "55% 45% 60% 40%",
+              background:
+                "radial-gradient(circle at 50% 70%, white 0%, #fff3a0 20%, #ffd166 42%, #ff8c00 68%, #ff4500 100%)",
+              boxShadow:
+                "0 0 10px #ffd166, 0 0 25px #ff8c00, 0 0 40px rgba(255,70,0,.5)",
+              zIndex: 40,
+            }}
+          />
+
           {/* WICK */}
           <div
             style={{
@@ -144,6 +295,7 @@ zIndex: 40,
               filter: "blur(5px)",
             }}
           />
+
         </motion.div>
       )}
     </AnimatePresence>
@@ -367,6 +519,8 @@ zIndex: 40,
       </>
     )}
   </div>
+
 </PageWrapper>
+
 );
 }
